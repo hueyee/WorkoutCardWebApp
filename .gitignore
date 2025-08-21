@@ -54,3 +54,6 @@ node_modules
 # Keep the Workouts directory structure but ignore the actual workout files in development
 # Workouts/*
 # !Workouts/.gitkeep
+
+# Azure Functions
+local.settings.json
