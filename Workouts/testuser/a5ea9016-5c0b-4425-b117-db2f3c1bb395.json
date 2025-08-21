@@ -1,0 +1,45 @@
+{
+  "id": "a5ea9016-5c0b-4425-b117-db2f3c1bb395",
+  "name": "Upper Body Strength",
+  "description": "A comprehensive upper body workout focusing on strength building",
+  "blocks": [
+    {
+      "id": "6c122b7d-8b99-414f-bfc6-fba6fb0ea17c",
+      "name": "Push Exercises",
+      "description": "Focus on chest, shoulders, and triceps",
+      "exercises": [
+        {
+          "id": "cda94e16-b699-4341-8443-aab6ce7486ff",
+          "name": "Bench Press",
+          "description": null,
+          "category": null,
+          "sets": [],
+          "notes": null,
+          "restTime": null
+        },
+        {
+          "id": "ecf86e95-9bb7-42d1-9979-b4713488a054",
+          "name": "Push-ups",
+          "description": null,
+          "category": null,
+          "sets": [],
+          "notes": null,
+          "restTime": null
+        }
+      ],
+      "sets": 3,
+      "restTime": null,
+      "notes": null
+    }
+  ],
+  "createdAt": "2025-08-21T03:16:21.5161625Z",
+  "updatedAt": "2025-08-21T03:16:21.5162394Z",
+  "notes": null,
+  "estimatedDuration": null,
+  "difficulty": "Intermediate",
+  "tags": [
+    "strength",
+    "upper body",
+    "gym"
+  ]
+}

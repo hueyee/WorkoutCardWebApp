@@ -1,0 +1,4 @@
+# User workout files will be stored here
+# Structure: Workouts/{username}/{workoutId}.json
+
+# This directory is created automatically by the application
