@@ -1,0 +1,338 @@
+@page "/workout/edit"
+@using WorkoutCardWebApp.Models
+@using WorkoutCardWebApp.Services
+@inject IWorkoutStorageService StorageService
+@inject NavigationManager Navigation
+@rendermode InteractiveServer
+
+<PageTitle>@(IsEditMode ? "Edit Workout" : "New Workout")</PageTitle>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1>@(IsEditMode ? "Edit Workout" : "Create New Workout")</h1>
+                <button class="btn btn-outline-secondary" @onclick="GoBack">
+                    <i class="fas fa-arrow-left"></i> Back to Workouts
+                </button>
+            </div>
+        </div>
+    </div>
+
+    @if (workout != null)
+    {
+        <EditForm Model="workout" OnValidSubmit="SaveWorkout">
+            <DataAnnotationsValidator />
+            <ValidationSummary class="alert alert-danger" />
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Workout Details</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="workoutName">Workout Name *</label>
+                                        <InputText @bind-Value="workout.Name" class="form-control" id="workoutName" />
+                                        <ValidationMessage For="@(() => workout.Name)" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="workoutStatus">Status</label>
+                                        <InputSelect @bind-Value="workout.Status" class="form-control" id="workoutStatus">
+                                            @foreach (var status in Enum.GetValues<WorkoutStatus>())
+                                            {
+                                                <option value="@status">@status</option>
+                                            }
+                                        </InputSelect>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="workoutDescription">Description</label>
+                                <InputTextArea @bind-Value="workout.Description" class="form-control" id="workoutDescription" rows="3" />
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="estimatedDuration">Estimated Duration (minutes)</label>
+                                        <InputNumber @bind-Value="workout.EstimatedDurationMinutes" class="form-control" id="estimatedDuration" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="workoutNotes">Notes</label>
+                                <InputTextArea @bind-Value="workout.Notes" class="form-control" id="workoutNotes" rows="2" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5>Blocks</h5>
+                            <button type="button" class="btn btn-sm btn-outline-primary" @onclick="AddBlock">
+                                <i class="fas fa-plus"></i> Add Block
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            @if (!workout.Blocks.Any())
+                            {
+                                <p class="text-muted">No blocks added yet. Add a block to start building your workout.</p>
+                            }
+                            else
+                            {
+                                @for (int i = 0; i < workout.Blocks.Count; i++)
+                                {
+                                    var blockIndex = i;
+                                    var block = workout.Blocks[blockIndex];
+                                    
+                                    <div class="border rounded p-3 mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <h6>Block @(blockIndex + 1)</h6>
+                                            <button type="button" class="btn btn-sm btn-outline-danger" @onclick="() => RemoveBlock(blockIndex)">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-2">
+                                                    <label>Block Name</label>
+                                                    <InputText @bind-Value="block.Name" class="form-control form-control-sm" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-2">
+                                                    <label>Rest Time (seconds)</label>
+                                                    <InputNumber @bind-Value="block.RestTimeSeconds" class="form-control form-control-sm" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group mb-2">
+                                            <label>Description</label>
+                                            <InputText @bind-Value="block.Description" class="form-control form-control-sm" />
+                                        </div>
+
+                                        <div class="mt-3">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <strong>Exercises</strong>
+                                                <button type="button" class="btn btn-sm btn-outline-secondary" @onclick="() => AddExercise(blockIndex)">
+                                                    <i class="fas fa-plus"></i> Add Exercise
+                                                </button>
+                                            </div>
+                                            
+                                            @if (!block.Exercises.Any())
+                                            {
+                                                <p class="text-muted small">No exercises added to this block.</p>
+                                            }
+                                            else
+                                            {
+                                                @for (int j = 0; j < block.Exercises.Count; j++)
+                                                {
+                                                    var exerciseIndex = j;
+                                                    var exercise = block.Exercises[exerciseIndex];
+                                                    
+                                                    <div class="border rounded p-2 mb-2 bg-light">
+                                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                                            <small><strong>Exercise @(exerciseIndex + 1)</strong></small>
+                                                            <button type="button" class="btn btn-sm btn-outline-danger" @onclick="() => RemoveExercise(blockIndex, exerciseIndex)">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                        </div>
+                                                        
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <InputText @bind-Value="exercise.Name" class="form-control form-control-sm" placeholder="Exercise name" />
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <InputSelect @bind-Value="exercise.Type" class="form-control form-control-sm">
+                                                                    @foreach (var type in Enum.GetValues<ExerciseType>())
+                                                                    {
+                                                                        <option value="@type">@type</option>
+                                                                    }
+                                                                </InputSelect>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Actions</h5>
+                        </div>
+                        <div class="card-body">
+                            <button type="submit" class="btn btn-primary w-100 mb-2">
+                                <i class="fas fa-save"></i> Save Workout
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary w-100" @onclick="GoBack">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+
+                    @if (IsEditMode)
+                    {
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h6>Workout Info</h6>
+                            </div>
+                            <div class="card-body">
+                                <small class="text-muted">
+                                    <strong>Created:</strong><br />
+                                    @workout.CreatedDate.ToString("MMM dd, yyyy HH:mm")
+                                    <br /><br />
+                                    @if (workout.LastModifiedDate.HasValue)
+                                    {
+                                        <strong>Last Modified:</strong><br />
+                                        @workout.LastModifiedDate.Value.ToString("MMM dd, yyyy HH:mm")
+                                    }
+                                </small>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </EditForm>
+    }
+    else
+    {
+        <div class="text-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [SupplyParameterFromQuery] public string? Username { get; set; }
+    [SupplyParameterFromQuery] public string? Id { get; set; }
+
+    private Workout? workout;
+    private bool IsEditMode => !string.IsNullOrWhiteSpace(Id);
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (string.IsNullOrWhiteSpace(Username))
+        {
+            Navigation.NavigateTo("/");
+            return;
+        }
+
+        if (IsEditMode && !string.IsNullOrWhiteSpace(Id))
+        {
+            workout = await StorageService.GetWorkoutAsync(Username, Id);
+            if (workout == null)
+            {
+                Navigation.NavigateTo("/");
+                return;
+            }
+        }
+        else
+        {
+            workout = new Workout 
+            { 
+                Username = Username,
+                Name = "",
+                Status = WorkoutStatus.Draft
+            };
+        }
+    }
+
+    private async Task SaveWorkout()
+    {
+        if (workout == null || string.IsNullOrWhiteSpace(Username)) return;
+
+        try
+        {
+            if (IsEditMode && !string.IsNullOrWhiteSpace(Id))
+            {
+                await StorageService.UpdateWorkoutAsync(Username, Id, workout);
+            }
+            else
+            {
+                await StorageService.CreateWorkoutAsync(Username, workout);
+            }
+
+            Navigation.NavigateTo($"/?username={Username}");
+        }
+        catch (Exception ex)
+        {
+            // In a real app, show a proper error message
+            Console.WriteLine($"Error saving workout: {ex.Message}");
+        }
+    }
+
+    private void AddBlock()
+    {
+        if (workout == null) return;
+        
+        workout.Blocks.Add(new Block 
+        { 
+            Id = workout.Blocks.Count + 1,
+            Name = $"Block {workout.Blocks.Count + 1}",
+            Order = workout.Blocks.Count
+        });
+    }
+
+    private void RemoveBlock(int index)
+    {
+        if (workout?.Blocks != null && index >= 0 && index < workout.Blocks.Count)
+        {
+            workout.Blocks.RemoveAt(index);
+        }
+    }
+
+    private void AddExercise(int blockIndex)
+    {
+        if (workout?.Blocks != null && blockIndex >= 0 && blockIndex < workout.Blocks.Count)
+        {
+            var block = workout.Blocks[blockIndex];
+            block.Exercises.Add(new Exercise 
+            { 
+                Id = block.Exercises.Count + 1,
+                Name = "",
+                Type = ExerciseType.Strength
+            });
+        }
+    }
+
+    private void RemoveExercise(int blockIndex, int exerciseIndex)
+    {
+        if (workout?.Blocks != null && 
+            blockIndex >= 0 && blockIndex < workout.Blocks.Count &&
+            exerciseIndex >= 0 && exerciseIndex < workout.Blocks[blockIndex].Exercises.Count)
+        {
+            workout.Blocks[blockIndex].Exercises.RemoveAt(exerciseIndex);
+        }
+    }
+
+    private void GoBack()
+    {
+        if (!string.IsNullOrWhiteSpace(Username))
+        {
+            Navigation.NavigateTo($"/?username={Username}");
+        }
+        else
+        {
+            Navigation.NavigateTo("/");
+        }
+    }
+}
