@@ -28,3 +28,4 @@
 /home/runner/work/WorkoutCardWebApp/WorkoutCardWebApp/WorkoutCardWebApp/obj/Debug/net8.0/WorkoutCardWebApp.pdb
 /home/runner/work/WorkoutCardWebApp/WorkoutCardWebApp/WorkoutCardWebApp/obj/Debug/net8.0/WorkoutCardWebApp.genruntimeconfig.cache
 /home/runner/work/WorkoutCardWebApp/WorkoutCardWebApp/WorkoutCardWebApp/obj/Debug/net8.0/ref/WorkoutCardWebApp.dll
+/home/runner/work/WorkoutCardWebApp/WorkoutCardWebApp/WorkoutCardWebApp/bin/Debug/net8.0/Workouts/testuser/345663a9-3aa7-4d59-a43c-977ca9fbda2b.json
