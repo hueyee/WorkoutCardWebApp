@@ -1,50 +1,26 @@
-# Build results
-bin/
-obj/
-out/
+# build
+**/[Bb]in/
+**/[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+artifacts/
 
-# User-specific files
+# user/IDE
+.vs/
+.idea/
+.vscode/
 *.user
 *.suo
-*.userosscache
-*.sln.docstates
-
-# VS Code settings
-.vscode/
-
-# Dotnet publish output
-publish/
-*.db
-
-# NuGet packages
-*.nupkg
-packages/
-.nuget/
-
-# ASP.NET Scaffolding
-ScaffoldingReadMe.txt
-
-# Logs
-*.log
-
-# OS generated files
-.DS_Store
-Thumbs.db
-
-# Environment files
-.env
-
-# Rider IDE
-.idea/
-*.sln.iml
-
-# Test results
-TestResults/
-*.trx
-*.coverage
-*.coveragexml
-
-# Others
 *.swp
-*.bak
 *.tmp
+*.bak
+
+# node
+node_modules/
+npm-debug.log*
+yarn-*.log
+
+# publish
+*.pubxml
+*.pubxml.user
+Properties/PublishProfiles/
