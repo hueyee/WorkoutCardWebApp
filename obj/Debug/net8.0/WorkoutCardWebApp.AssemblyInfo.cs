@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WorkoutCardWebApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9f3a32775bea4f2ac96ac59d308bf617fa57f2d2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a15126f1e9800cd12be76c5730d6045c1a7fd4d0")]
 [assembly: System.Reflection.AssemblyProductAttribute("WorkoutCardWebApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WorkoutCardWebApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

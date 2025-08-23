@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "/home/runner/.nuget/packages/": {}
+    "/home/ctehuey/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/runner/work/WorkoutCardWebApp/WorkoutCardWebApp/WorkoutCardWebApp.csproj",
+      "projectUniqueName": "/home/ctehuey/WorkoutCardWebApp/WorkoutCardWebApp.csproj",
       "projectName": "WorkoutCardWebApp",
-      "projectPath": "/home/runner/work/WorkoutCardWebApp/WorkoutCardWebApp/WorkoutCardWebApp.csproj",
-      "packagesPath": "/home/runner/.nuget/packages/",
-      "outputPath": "/home/runner/work/WorkoutCardWebApp/WorkoutCardWebApp/obj/",
+      "projectPath": "/home/ctehuey/WorkoutCardWebApp/WorkoutCardWebApp.csproj",
+      "packagesPath": "/home/ctehuey/.nuget/packages/",
+      "outputPath": "/home/ctehuey/WorkoutCardWebApp/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/runner/.nuget/NuGet/NuGet.Config"
+        "/home/ctehuey/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -62,7 +62,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.119/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.118/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

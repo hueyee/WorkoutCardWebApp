@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "enigx9XByHPMkemmDMeCii3ozy7UyLBmWRmW8ZbJo8BGExJZtYDSlEAhcsKsWQA8FBhWge4+Ff+C/hHpzZM5Ow==",
+  "dgSpecHash": "G1N37joMOP2WEzwJTvWzynYuthYhj57TNIurn1b5VAqcn4OmsnAqdvuQm3ZwmoOgAWCMMz2ERTRTGzTZeIhsyg==",
   "success": true,
-  "projectFilePath": "/home/runner/work/WorkoutCardWebApp/WorkoutCardWebApp/WorkoutCardWebApp.csproj",
+  "projectFilePath": "/home/ctehuey/WorkoutCardWebApp/WorkoutCardWebApp.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

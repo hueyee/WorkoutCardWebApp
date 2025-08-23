@@ -1,23 +1,23 @@
 {
   "Files": [
     {
-      "Id": "/home/runner/work/WorkoutCardWebApp/WorkoutCardWebApp/obj/Debug/net8.0/scopedcss/projectbundle/WorkoutCardWebApp.bundle.scp.css",
+      "Id": "/home/ctehuey/WorkoutCardWebApp/obj/Debug/net8.0/scopedcss/projectbundle/WorkoutCardWebApp.bundle.scp.css",
       "PackagePath": "staticwebassets/WorkoutCardWebApp.bundle.scp.css"
     },
     {
-      "Id": "/home/runner/work/WorkoutCardWebApp/WorkoutCardWebApp/wwwroot/app.css",
+      "Id": "/home/ctehuey/WorkoutCardWebApp/wwwroot/app.css",
       "PackagePath": "staticwebassets/app.css"
     },
     {
-      "Id": "/home/runner/work/WorkoutCardWebApp/WorkoutCardWebApp/wwwroot/bootstrap/bootstrap.min.css",
+      "Id": "/home/ctehuey/WorkoutCardWebApp/wwwroot/bootstrap/bootstrap.min.css",
       "PackagePath": "staticwebassets/bootstrap/bootstrap.min.css"
     },
     {
-      "Id": "/home/runner/work/WorkoutCardWebApp/WorkoutCardWebApp/wwwroot/bootstrap/bootstrap.min.css.map",
+      "Id": "/home/ctehuey/WorkoutCardWebApp/wwwroot/bootstrap/bootstrap.min.css.map",
       "PackagePath": "staticwebassets/bootstrap/bootstrap.min.css.map"
     },
     {
-      "Id": "/home/runner/work/WorkoutCardWebApp/WorkoutCardWebApp/wwwroot/favicon.png",
+      "Id": "/home/ctehuey/WorkoutCardWebApp/wwwroot/favicon.png",
       "PackagePath": "staticwebassets/favicon.png"
     },
     {
