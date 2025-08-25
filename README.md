@@ -1,28 +1,27 @@
 # Workout Card Web App
 
-A modern Azure-native web application for managing workout routines, built with Blazor WebAssembly and Azure Functions.
+A modern Azure-native web application for managing workout routines, built with Blazor Server and ASP.NET Core.
 
 ## 🏗️ Architecture
 
-**Frontend**: Blazor WebAssembly (client-side rendering)  
-**Backend**: Azure Functions (serverless API)  
-**Storage**: In-memory (easily replaceable with Azure Storage/Cosmos DB)  
-**Deployment**: Azure Static Web Apps with integrated Functions
+**Frontend**: Blazor Server (server-side rendering with interactive components)  
+**Backend**: ASP.NET Core Web API Controllers  
+**Storage**: Disk-based file storage (easily replaceable with Azure Storage/Cosmos DB)  
+**Deployment**: Azure Web App
 
 ## ✨ Features
 
 - **Simple Username-Based Access**: No authentication required, just enter a username
-- **Serverless Architecture**: Azure Functions for scalable, cost-effective API
-- **Client-Side Rendering**: Fast, responsive Blazor WebAssembly interface
-- **REST API**: Full CRUD operations via Azure Functions
+- **Server-Side Rendering**: Fast, SEO-friendly Blazor Server interface with real-time interactivity
+- **Traditional Web Architecture**: Reliable ASP.NET Core Web API with proven patterns
+- **REST API**: Full CRUD operations via ASP.NET Core controllers
 - **Mobile Compatible**: JSON format compatible with mobile applications
-- **Azure-Native**: Designed for Azure Static Web Apps deployment
+- **Azure-Native**: Designed for Azure Web App deployment
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - .NET 8.0 SDK or later
-- Azure Functions Core Tools (for local API development)
 
 ### Running Locally
 
@@ -32,19 +31,11 @@ A modern Azure-native web application for managing workout routines, built with 
    cd WorkoutCardWebApp
    ```
 
-2. **Start the Azure Functions API** (Terminal 1)
+2. **Run the application**
    ```bash
-   cd WorkoutCardWebApp.Functions
-   func start
-   ```
-   API available at `http://localhost:7071`
-
-3. **Start the Blazor WebAssembly client** (Terminal 2)
-   ```bash
-   cd WorkoutCardWebApp.Client
    dotnet run
    ```
-   App available at `http://localhost:5177`
+   App available at `http://localhost:5205` (or check console output for actual port)
 
 ### Using the Application
 
@@ -56,7 +47,7 @@ A modern Azure-native web application for managing workout routines, built with 
 
 ## 📡 API Endpoints
 
-All endpoints are implemented as Azure Functions:
+All endpoints are implemented as ASP.NET Core Web API controllers:
 
 - `GET /api/workouts/{username}` - Get all workouts for a user
 - `GET /api/workouts/{username}/{workoutId}` - Get a specific workout
@@ -91,25 +82,29 @@ All endpoints are implemented as Azure Functions:
 
 ```
 WorkoutCardWebApp/
-├── WorkoutCardWebApp.Shared/          # Shared models and interfaces
-├── WorkoutCardWebApp.Functions/       # Azure Functions API
-├── WorkoutCardWebApp.Client/          # Blazor WebAssembly app
-└── .github/workflows/                 # Azure deployment workflow
+├── Components/                          # Blazor Server components
+│   ├── Layout/                         # App layout components  
+│   └── Pages/                          # Page components
+├── Controllers/                        # Web API controllers
+├── Models/                            # Data models
+├── Services/                          # Business logic services
+├── wwwroot/                           # Static web assets
+└── .github/workflows/                 # Azure Web App deployment workflow
 ```
 
 ## 🚀 Deployment
 
-Configured for Azure Static Web Apps with integrated Azure Functions:
+Configured for Azure Web App deployment:
 
-1. **GitHub Actions** automatically builds and deploys both client and API
-2. **Zero Configuration** - Azure Static Web Apps handles routing
-3. **Automatic HTTPS** and global CDN included
+1. **GitHub Actions** automatically builds and deploys the web application
+2. **Traditional Web App** - Standard ASP.NET Core hosting model
+3. **Automatic HTTPS** and load balancing included
 
 ## 🔧 Storage Options
 
-### Current: In-Memory (Development)
+### Current: Disk-Based (Development)
 - Fast and simple for development/testing
-- Data resets when Functions restart
+- Files stored in local `Workouts/` directory
 
 ### Production: Azure Table Storage (Recommended)
 ```csharp
@@ -123,14 +118,14 @@ services.AddSingleton<IWorkoutStorageService, CosmosDbWorkoutStorageService>();
 
 ## 📚 Additional Documentation
 
-- [Migration Guide](MIGRATION-GUIDE.md) - Detailed migration documentation
-- [Azure Static Web Apps](https://docs.microsoft.com/azure/static-web-apps/)
-- [Azure Functions](https://docs.microsoft.com/azure/azure-functions/)
+- [Azure Web Apps](https://docs.microsoft.com/azure/app-service/)
+- [ASP.NET Core](https://docs.microsoft.com/aspnet/core/)
+- [Blazor Server](https://docs.microsoft.com/aspnet/core/blazor/hosting-models#blazor-server)
 
 ## 🛠️ Technologies
 
-- **Frontend**: Blazor WebAssembly, Bootstrap 5
-- **Backend**: Azure Functions (.NET 8, Isolated Worker)
-- **Storage**: Configurable (In-Memory, Azure Storage, Cosmos DB)
-- **Deployment**: Azure Static Web Apps, GitHub Actions
+- **Frontend**: Blazor Server, Bootstrap 5
+- **Backend**: ASP.NET Core Web API (.NET 8)
+- **Storage**: Configurable (Disk-based, Azure Storage, Cosmos DB)
+- **Deployment**: Azure Web App, GitHub Actions
 - **Development**: .NET 8, Visual Studio Code/Visual Studio
