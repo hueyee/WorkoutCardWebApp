@@ -29,6 +29,11 @@ jobs:
         
       - name: Publish
         run: dotnet publish --no-build --configuration Release --output ./publish
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
         
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
@@ -37,3 +42,4 @@ jobs:
           slot-name: 'production'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: './publish'
+
