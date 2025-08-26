@@ -2,44 +2,35 @@ name: Azure Web App CI/CD
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-    name: Build and Deploy Job
-    
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-          
-      - name: Restore dependencies
+
+      - name: Restore
         run: dotnet restore
-        
+
       - name: Build
         run: dotnet build --no-restore --configuration Release
-        
-      - name: Publish
-        run: dotnet publish --no-build --configuration Release --output ./publish
 
-      - name: Azure Login
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-        
+      - name: Publish
+        run: dotnet publish --no-build --configuration Release -o ./publish
+
+      # No azure/login here
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
-          slot-name: 'production'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: './publish'
-
+          # app-name is optional when using publish-profile; if you include it, make sure it matches exactly
+          package: ./publish
